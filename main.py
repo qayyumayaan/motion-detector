@@ -2,12 +2,18 @@ from camera import capture_photo
 from motion_sensor import detect_motion
 from photoresistor import is_light_low
 from LED_lighting import enable_led
+from datetime import datetime
+import time
 
 def main():
     print("Program started. Monitoring light and motion...")
 
     try:
         while True:
+            # Print the current timestamp
+            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            print(f"Timestamp: {current_time}")
+
             # Check the light level
             if is_light_low():
                 print("Light level low. Turning on LED.")
