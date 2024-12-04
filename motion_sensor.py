@@ -6,4 +6,4 @@ def detect_motion():
     """
     # TODO: Add implementation for reading the motion sensor's output.
     # Simulating with placeholder logic:
-    return False  # Replace with actual motion detection logic
+    return True  # Replace with actual motion detection logic
