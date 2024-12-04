@@ -11,7 +11,7 @@ def main():
     try:
         while True:
             # Print the current timestamp
-            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]  # Include milliseconds
             print(f"Timestamp: {current_time}")
 
             # Check the light level
