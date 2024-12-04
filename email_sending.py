@@ -13,14 +13,14 @@ load_dotenv("cred.env")
 SENDER_EMAIL = os.getenv("SENDER_EMAIL")
 SENDER_PASSWORD = os.getenv("SENDER_PASSWORD")
 
-def send_email(subject, body, attachment_path, recipient_email):
+def send_email(subject, body, attachment_path, RECIPIENT_EMAIL):
     """
     Sends an email with an attachment.
     Args:
         subject (str): Email subject.
         body (str): Email body content.
         attachment_path (str): Path to the attachment file.
-        recipient_email (str): Recipient's email address.
+        RECIPIENT_EMAIL (str): Recipient's email address.
     """
     if not os.path.exists(attachment_path):
         print(f"Attachment not found: {attachment_path}")
@@ -29,7 +29,7 @@ def send_email(subject, body, attachment_path, recipient_email):
     # Create the email
     msg = MIMEMultipart()
     msg['From'] = SENDER_EMAIL
-    msg['To'] = recipient_email
+    msg['To'] = RECIPIENT_EMAIL
     msg['Subject'] = subject
     msg.attach(MIMEText(body, 'plain'))
 
@@ -47,7 +47,7 @@ def send_email(subject, body, attachment_path, recipient_email):
             server.starttls()
             server.login(SENDER_EMAIL, SENDER_PASSWORD)
             server.send_message(msg)
-        print(f"Email sent to {recipient_email} with attachment {attachment_path}")
+        print(f"Email sent to {RECIPIENT_EMAIL} with attachment {attachment_path}")
         return True
     except Exception as e:
         print(f"Failed to send email: {e}")
