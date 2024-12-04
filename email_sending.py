@@ -13,6 +13,8 @@ load_dotenv("cred.env")
 SENDER_EMAIL = os.getenv("SENDER_EMAIL")
 SENDER_PASSWORD = os.getenv("SENDER_PASSWORD")
 RECIPIENT_EMAIL = os.getenv("RECIPIENT_EMAIL")
+SMTP_SERVER = os.getenv("SMTP_SERVER")
+SMTP_PORT = os.getenv("SMTP_PORT")
 
 def send_email(subject, body, attachment_path):
     """
@@ -43,8 +45,9 @@ def send_email(subject, body, attachment_path):
     msg.attach(part)
 
     # Send the email
+    
     try:
-        with smtplib.SMTP('smtp.onmail.com', 587) as server:  # Use OnMail's SMTP server
+        with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server: 
             server.starttls()
             server.login(SENDER_EMAIL, SENDER_PASSWORD)
             server.send_message(msg)
