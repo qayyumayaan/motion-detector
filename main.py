@@ -43,8 +43,8 @@ def main():
                 else:
                     print("Failed to capture photo.")
 
-            # Wait for 100 ms before the next iteration
-            time.sleep(0.1)
+            # Wait for a little bit before the next iteration
+            time.sleep(10)
 
     except KeyboardInterrupt:
         print("Exiting program...")
