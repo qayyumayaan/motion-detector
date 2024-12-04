@@ -12,8 +12,9 @@ load_dotenv("cred.env")
 # Read credentials from the environment
 SENDER_EMAIL = os.getenv("SENDER_EMAIL")
 SENDER_PASSWORD = os.getenv("SENDER_PASSWORD")
+RECIPIENT_EMAIL = os.getenv("RECIPIENT_EMAIL")
 
-def send_email(subject, body, attachment_path, RECIPIENT_EMAIL):
+def send_email(subject, body, attachment_path):
     """
     Sends an email with an attachment.
     Args:
