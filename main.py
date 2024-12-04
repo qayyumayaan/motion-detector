@@ -11,7 +11,6 @@ def main():
     print("Program started. Monitoring light and motion...")
 
     last_sent_image = None  # Keep track of the last sent image
-    RECIPIENT_EMAIL = os.getenv("RECIPIENT_EMAIL")
 
     try:
         while True:
@@ -36,7 +35,7 @@ def main():
                     if photo_path != last_sent_image:  # Avoid resending the same image
                         subject = "Motion Detected!"
                         body = f"Motion was detected at {current_time}."
-                        if send_email(subject, body, photo_path, RECIPIENT_EMAIL):
+                        if send_email(subject, body, photo_path):
                             last_sent_image = photo_path  # Update last sent image
                         else:
                             print("Failed to send email.")
