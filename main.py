@@ -2,11 +2,16 @@ from camera import capture_photo
 from motion_sensor import detect_motion
 from photoresistor import is_light_low
 from LED_lighting import enable_led
+from email import send_email
 from datetime import datetime
 import time
+import os
 
 def main():
     print("Program started. Monitoring light and motion...")
+
+    last_sent_image = None  # Keep track of the last sent image
+    RECIPIENT_EMAIL = os.getenv("RECIPIENT_EMAIL")
 
     try:
         while True:
@@ -28,6 +33,13 @@ def main():
                 photo_path = capture_photo()
                 if photo_path:
                     print(f"Photo saved to: {photo_path}")
+                    if photo_path != last_sent_image:  # Avoid resending the same image
+                        subject = "Motion Detected!"
+                        body = f"Motion was detected at {current_time}."
+                        if send_email(subject, body, photo_path, RECIPIENT_EMAIL):
+                            last_sent_image = photo_path  # Update last sent image
+                        else:
+                            print("Failed to send email.")
                 else:
                     print("Failed to capture photo.")
 
