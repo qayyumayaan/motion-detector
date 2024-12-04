@@ -2,7 +2,7 @@ from camera import capture_photo
 from motion_sensor import detect_motion
 from photoresistor import is_light_low
 from LED_lighting import enable_led
-from email import send_email
+from email_sending import send_email
 from datetime import datetime
 import time
 import os
