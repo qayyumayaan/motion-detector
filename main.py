@@ -28,14 +28,16 @@ def main():
                 if photo_path:
                     print(f"Photo saved to: {photo_path}")
                     
-                    # Send email function call
-                    if photo_path != last_sent_image:  # Avoid resending the same image
-                        subject = "Motion Detected!"
-                        body = f"Motion was detected at {current_time}."
-                        if send_email(subject, body, photo_path):
-                            last_sent_image = photo_path  # Update last sent image
-                        else:
-                            print("Failed to send email.")
+                    email_photo = False
+                    if email_photo == True:
+                        # Send email function call
+                        if photo_path != last_sent_image:  # Avoid resending the same image
+                            subject = "Motion Detected!"
+                            body = f"Motion was detected at {current_time}."
+                            if send_email(subject, body, photo_path):
+                                last_sent_image = photo_path  # Update last sent image
+                            else:
+                                print("Failed to send email.")
                 
                 else:
                     print("Failed to capture photo.")
