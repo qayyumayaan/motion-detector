@@ -19,10 +19,10 @@ def main():
             print(f"Timestamp: {current_time}")
 
             # Turn on light
-            is_light_low()
+            is_light_low(resistorPin, ledPin)
 
             # Check motion and trigger camera
-            if detect_motion():
+            if detect_motion(MOTION_SENSOR_PIN):
                 print("Motion detected! Capturing photo...")
                 photo_path = capture_photo()
                 if photo_path:
