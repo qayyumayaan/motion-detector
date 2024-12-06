@@ -1,7 +1,7 @@
 from camera import capture_photo
 from motion_sensor import detect_motion
 from photoresistor import is_light_low
-from LED_lighting import enable_led
+# from LED_lighting import enable_led
 from email_sending import send_email
 from datetime import datetime
 import time
@@ -18,13 +18,8 @@ def main():
             current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]  # Include milliseconds
             print(f"Timestamp: {current_time}")
 
-            # Check the light level
-            if is_light_low():
-                print("Light level low. Turning on LED.")
-                enable_led(True)  # Turn on LED
-            else:
-                print("Sufficient light. Turning off LED.")
-                enable_led(False)  # Turn off LED
+            # Turn on light
+            is_light_low()
 
             # Check motion and trigger camera
             if detect_motion():
@@ -53,7 +48,7 @@ def main():
 
     finally:
         # Ensure the LED is turned off before exiting
-        enable_led(False)
+        GPIO.cleanup()  # Reset GPIO pins to a safe state
         print("LED turned off. Program terminated.")
 
 if __name__ == "__main__":
