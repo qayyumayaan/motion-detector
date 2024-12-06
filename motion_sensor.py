@@ -1,9 +1,19 @@
-def detect_motion():
+import RPi.GPIO as GPIO
+import time
+
+def detect_motion(MOTION_SENSOR_PIN):
     """
-    Detect motion using the motion sensor.
+    Detects motion using a PIR sensor.
+
     Returns:
         bool: True if motion is detected, False otherwise.
     """
-    # TODO: Add implementation for reading the motion sensor's output.
-    # Simulating with placeholder logic:
-    return True  # Replace with actual motion detection logic
+    try:
+        if GPIO.input(MOTION_SENSOR_PIN):  # Motion detected
+            print("Motion sensor triggered!")
+            return True
+        else:
+            return False
+    except Exception as e:
+        print(f"Error detecting motion: {e}")
+        return False
