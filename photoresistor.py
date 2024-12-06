@@ -1,9 +1,47 @@
+import RPi.GPIO as GPIO
+import time
+
+# Set up GPIO mode
+GPIO.setmode(GPIO.BOARD)
+
+# Define pins
+resistorPin = 7
+ledPin = 26  # GPIO pin for the LED
+
+# Set up LED pin
+GPIO.setup(ledPin, GPIO.OUT)
+GPIO.output(ledPin, GPIO.LOW)  # Turn off LED initially
+
+# Threshold value in milliseconds
+threshold = 200  # Adjust this value based on your requirements
+
 def is_light_low():
     """
     Determine if the light level is low.
     Returns:
         bool: True if light is low, False otherwise.
     """
-    # TODO: Add implementation for reading the light level from the photoresistor.
-    # Simulating with placeholder logic:
-    return False  # Replace with actual light detection logic
+    # Charge the capacitor
+    GPIO.setup(resistorPin, GPIO.OUT)
+    GPIO.output(resistorPin, GPIO.LOW)
+    time.sleep(0.1)
+
+    # Discharge the capacitor
+    GPIO.setup(resistorPin, GPIO.IN)
+    currentTime = time.time()
+    diff = 0
+
+    while(GPIO.input(resistorPin) == GPIO.LOW):
+        diff = time.time() - currentTime
+
+    # Convert time to milliseconds
+    diff_ms = diff * 1000
+    print(f"Measured time: {diff_ms:.2f} ms")
+
+    # Check if the measured time exceeds the threshold
+    if diff_ms > threshold:
+        print('LIGHT ON')
+        GPIO.output(ledPin, GPIO.HIGH)  # Turn on LED
+    else:
+        print('LIGHT OFF')
+        GPIO.output(ledPin, GPIO.LOW)  # Turn off LED
