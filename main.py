@@ -6,6 +6,21 @@ from email_sending import send_email
 from datetime import datetime
 import time
 import os
+import RPi.GPIO as GPIO
+
+GPIO.setmode(GPIO.BOARD)
+
+# Define pins
+resistorPin = 7
+ledPin = 26  # GPIO pin for the LED
+
+# Set up Motion Sensor
+MOTION_SENSOR_PIN = 11  # Replace with the GPIO pin connected to your motion sensor
+GPIO.setup(MOTION_SENSOR_PIN, GPIO.IN)  # Set pin as input for motion detection
+
+# Set up LED pin and turn off LED initially
+GPIO.setup(ledPin, GPIO.OUT)
+GPIO.output(ledPin, GPIO.LOW)  
 
 def main():
     print("Program started. Monitoring light and motion...")
