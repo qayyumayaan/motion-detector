@@ -1,21 +1,10 @@
 import RPi.GPIO as GPIO
 import time
 
-# Set up GPIO mode
-GPIO.setmode(GPIO.BOARD)
-
-# Define pins
-resistorPin = 7
-ledPin = 26  # GPIO pin for the LED
-
-# Set up LED pin
-GPIO.setup(ledPin, GPIO.OUT)
-GPIO.output(ledPin, GPIO.LOW)  # Turn off LED initially
-
 # Threshold value in milliseconds
 threshold = 200  # Adjust this value based on your requirements
 
-def is_light_low():
+def is_light_low(resistorPin, ledPin):
     """
     Determine if the light level is low.
     Returns:
