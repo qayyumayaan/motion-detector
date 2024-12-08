@@ -1,21 +1,10 @@
 import RPi.GPIO as GPIO
 import time
 
-# Set up GPIO mode
-GPIO.setmode(GPIO.BOARD)
-
-# Define pins
-resistorPin = 7
-ledPin = 26  # GPIO pin for the LED
-
-# Set up LED pin
-GPIO.setup(ledPin, GPIO.OUT)
-GPIO.output(ledPin, GPIO.LOW)  # Turn off LED initially
-
 # Threshold value in milliseconds
 threshold = 200  # Adjust this value based on your requirements
 
-def is_light_low():
+def is_light_low(resistorPin, ledPin):
     """
     Determine if the light level is low.
     Returns:
@@ -35,8 +24,8 @@ def is_light_low():
         diff = time.time() - currentTime
 
     # Convert time to milliseconds
-    diff_ms = diff * 1000
-    print(f"Measured time: {diff_ms:.2f} ms")
+    diff_ms = diff * 50
+    # print(f"Measured time: {diff_ms:.2f} ms")
 
     # Check if the measured time exceeds the threshold
     if diff_ms > threshold:
