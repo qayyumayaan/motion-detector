@@ -6,9 +6,25 @@ from email_sending import send_email
 from datetime import datetime
 import time
 import os
+import RPi.GPIO as GPIO
+
+GPIO.setmode(GPIO.BOARD)
+
+# Define pins
+resistorPin = 7
+ledPin = 26  # GPIO pin for the LED
+
+# Set up Motion Sensor
+MOTION_SENSOR_PIN = 11  
+GPIO.setup(MOTION_SENSOR_PIN, GPIO.IN)  # Set pin as input for motion detection
+
+# Set up LED pin and turn off LED initially
+GPIO.setup(ledPin, GPIO.OUT)
+GPIO.output(ledPin, GPIO.LOW)  
 
 def main():
     print("Program started. Monitoring light and motion...")
+    #time.sleep(10)
 
     last_sent_image = None  # Keep track of the last sent image
 
@@ -19,10 +35,10 @@ def main():
             print(f"Timestamp: {current_time}")
 
             # Turn on light
-            is_light_low()
+            is_light_low(resistorPin, ledPin)
 
             # Check motion and trigger camera
-            if detect_motion():
+            if detect_motion(MOTION_SENSOR_PIN):
                 print("Motion detected! Capturing photo...")
                 photo_path = capture_photo()
                 if photo_path:
@@ -43,7 +59,7 @@ def main():
                     print("Failed to capture photo.")
 
             # Wait for a little bit before the next iteration
-            time.sleep(10)
+            time.sleep(1)
 
     except KeyboardInterrupt:
         print("Exiting program...")
