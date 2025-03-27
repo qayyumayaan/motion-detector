@@ -1,5 +1,7 @@
 import RPi.GPIO as GPIO
 import time
+from signal import pause
+
 
 def detect_motion(MOTION_SENSOR_PIN):
     """
@@ -9,6 +11,10 @@ def detect_motion(MOTION_SENSOR_PIN):
         bool: True if motion is detected, False otherwise.
     """
     try:
+
+        GPIO.setmode(GPIO.BOARD)
+        GPIO.setup(MOTION_SENSOR_PIN, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+
         if GPIO.input(MOTION_SENSOR_PIN):  # Motion detected
             print("Motion sensor triggered!")
             return True

@@ -24,8 +24,8 @@ def is_light_low(resistorPin, ledPin):
         diff = time.time() - currentTime
 
     # Convert time to milliseconds
-    diff_ms = diff * 1000
-    print(f"Measured time: {diff_ms:.2f} ms")
+    diff_ms = diff * 50
+    # print(f"Measured time: {diff_ms:.2f} ms")
 
     # Check if the measured time exceeds the threshold
     if diff_ms > threshold:

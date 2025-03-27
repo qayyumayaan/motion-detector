@@ -15,7 +15,7 @@ resistorPin = 7
 ledPin = 26  # GPIO pin for the LED
 
 # Set up Motion Sensor
-MOTION_SENSOR_PIN = 11  # Replace with the GPIO pin connected to your motion sensor
+MOTION_SENSOR_PIN = 11  
 GPIO.setup(MOTION_SENSOR_PIN, GPIO.IN)  # Set pin as input for motion detection
 
 # Set up LED pin and turn off LED initially
@@ -24,6 +24,7 @@ GPIO.output(ledPin, GPIO.LOW)
 
 def main():
     print("Program started. Monitoring light and motion...")
+    #time.sleep(10)
 
     last_sent_image = None  # Keep track of the last sent image
 
@@ -58,7 +59,7 @@ def main():
                     print("Failed to capture photo.")
 
             # Wait for a little bit before the next iteration
-            time.sleep(10)
+            time.sleep(1)
 
     except KeyboardInterrupt:
         print("Exiting program...")
